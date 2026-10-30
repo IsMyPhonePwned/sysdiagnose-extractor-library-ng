@@ -59,17 +59,17 @@ clap = { version = "4.0", features = ["derive"], optional = true }
 tracing-subscriber = { version = "0.3", features = ["env-filter"], optional = true }
 
 [dependencies.mul-core]
-path = "../mac-unified-library/crates/mul-core"
+git = "https://github.com/IsMyPhonePwned/mac-unified-library"
 optional = true
 default-features = false
 
 [dependencies.mul-unifiedlog]
-path = "../mac-unified-library/crates/mul-unifiedlog"
+git = "https://github.com/IsMyPhonePwned/mac-unified-library"
 optional = true
 default-features = false
 
 [dependencies.mul-apollo]
-path = "../mac-unified-library/crates/mul-apollo"
+git = "https://github.com/IsMyPhonePwned/mac-unified-library"
 optional = true
 default-features = false
 features = ["sqlite"]
