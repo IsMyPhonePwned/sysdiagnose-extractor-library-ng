@@ -1,0 +1,95 @@
+# SPDX-License-Identifier: GPL-3.0-only
+
+[workspace]
+members = [".", "python", "xtask"]
+default-members = [".", "xtask"]
+resolver = "2"
+
+[package]
+name = "sysdiagnose_extractor_library"
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0-only"
+description = "Fast, low-memory parser for Apple sysdiagnose archives"
+include = [
+    "src/**/*",
+    "bin/**/*",
+    "testdata/fixtures/**/*",
+    "Cargo.toml",
+    "README.md",
+    "LICENSE",
+]
+
+[lib]
+name = "sysdiagnose_extractor_library"
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["cli", "logarchive-decode", "apollo-mul"]
+cli = ["dep:clap", "dep:tracing-subscriber"]
+# Decode `.logarchive` via mac-unified-library's clean-room decoder (wasm-capable).
+logarchive-decode = ["dep:mul-unifiedlog", "dep:mul-core"]
+# Run APOLLO parsers through `mul-apollo` (WAL, schema probe, no Utc::now fallback).
+apollo-mul = ["dep:mul-apollo", "dep:mul-core"]
+python = []
+parallel-gzip = []
+index-cache = []
+
+[[bin]]
+name = "sdx-cli"
+path = "bin/sdx-cli.rs"
+required-features = ["cli"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+regex = "1"
+thiserror = "2"
+tracing = "0.1"
+flate2 = { version = "1", default-features = false, features = ["zlib-rs"] }
+tar = "0.4"
+plist = { version = "1.9", features = ["serde"] }
+chrono = { version = "0.4", default-features = false, features = ["std", "clock"] }
+strum = { version = "0.26", features = ["derive"] }
+csv = "1.3"
+base64 = "0.22"
+erased-serde = "0.4"
+clap = { version = "4.0", features = ["derive"], optional = true }
+tracing-subscriber = { version = "0.3", features = ["env-filter"], optional = true }
+
+[dependencies.mul-core]
+path = "../mac-unified-library/crates/mul-core"
+optional = true
+default-features = false
+
+[dependencies.mul-unifiedlog]
+path = "../mac-unified-library/crates/mul-unifiedlog"
+optional = true
+default-features = false
+
+[dependencies.mul-apollo]
+path = "../mac-unified-library/crates/mul-apollo"
+optional = true
+default-features = false
+features = ["sqlite"]
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+rusqlite = { version = "0.32", features = ["bundled"] }
+tempfile = "3"
+xz2 = "0.1"
+rayon = "1.8"
+memmap2 = "0.9"
+
+[dev-dependencies]
+serde_json = "1.0"
+tempfile = "3"
+flate2 = { version = "1", default-features = false, features = ["zlib-rs"] }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
+rusqlite = { version = "0.32", features = ["bundled"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

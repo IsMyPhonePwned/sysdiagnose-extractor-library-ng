@@ -1,0 +1,42 @@
++-o Root node <class test1, key1 val1>
+  | {
+  |   "data 1" = "value 1"
+  |   "data 2" = "value 2"
+  | }
+  | 
+  +-o Node 2 <class test2, key2 val2>
+    | {
+    |   "#address-cells" = <02000000>
+    |   "AAPL,phandle" = <01000000> 
+    | }
+    | 
+    +-o Node 3 <class test3, key3 val3>
+    | | {
+    | |   "data 31" = "value 31"
+    | |   "data 32" = "value 32"
+    | | }
+    | | 
+    | +-o Leaf 1 <class test11, key11 val11>
+    | | {
+    | |   "data l1" = "value l1"
+    | |   "data l2" = "value l2"
+    | | }
+    | |
+    | +-o Leaf 2 <class test22, key22 val22>
+    |   {
+    |     "data l3" = "value l3"
+    |     "data l4" = "value -->\xbf<--"
+    |   }
+    | 
+    +-o Leaf 3 <class test33, key33 val33>
+    | {
+    |   "data l5" = "value L5"
+    |   "data l6" = "value l6"
+    | }
+    |
+    +-o Leaf 4 <class test44, key44 val44>
+        {
+          "data 51" = "value 51"
+          "data 52" = "value 52"
+        }
+        

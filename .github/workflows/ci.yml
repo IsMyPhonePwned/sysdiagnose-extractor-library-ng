@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this crate
+        uses: actions/checkout@v4
+        with:
+          path: sysdiagnose-extractor-library-ng
+
+      - name: Checkout mac-unified-library
+        uses: actions/checkout@v4
+        with:
+          repository: IsMyPhonePwned/mac-unified-library
+          ref: main
+          path: mac-unified-library
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: sysdiagnose-extractor-library-ng
+
+      - name: Test
+        working-directory: sysdiagnose-extractor-library-ng
+        run: cargo test --workspace --exclude sysdiagnose_extractor_python --all-targets

@@ -1,0 +1,13 @@
+[build-system]
+requires = ["maturin>=1.7,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "sysdiagnose-extractor"
+version = "0.1.0"
+description = "Parse Apple sysdiagnose archives"
+requires-python = ">=3.8"
+license = { text = "GPL-3.0-only" }
+
+[tool.maturin]
+module-name = "sysdiagnose_extractor"

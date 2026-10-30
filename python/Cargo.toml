@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: GPL-3.0-only
+
+[package]
+name = "sysdiagnose_extractor_python"
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0-only"
+
+[lib]
+name = "sysdiagnose_extractor"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.30", features = ["extension-module"] }
+sysdiagnose_extractor_library = { path = "..", default-features = false, features = ["logarchive-decode", "apollo-mul"] }
+serde_json = "1.0"

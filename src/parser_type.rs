@@ -1,0 +1,260 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
+use std::str::FromStr;
+
+use strum::EnumIter;
+
+/// SAF-compatible parser identifiers. Declaration order is `list-parsers` order.
+#[allow(non_camel_case_types)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, EnumIter)]
+pub enum ParserType {
+    accessibility_tcc,
+    apollo_all,
+    appinstallation,
+    avconference_callsettings,
+    awd_baseband,
+    battery_bdc,
+    bluetooth,
+    brctl,
+    ckks_pcs,
+    collection_meta,
+    containermanager,
+    crashlogs,
+    disks,
+    ioacpiplane,
+    iodevicetree,
+    iofirewire,
+    iopower,
+    ioservice,
+    iousb,
+    interactionc,
+    ioport,
+    itunesstore,
+    kbdebug,
+    knowledgec,
+    lockdownd,
+    logarchive,
+    logdata_statistics,
+    logdata_statistics_txt,
+    lsaw,
+    mcsettingsevents,
+    mcstate_shared_profile,
+    microstackshots,
+    mobileactivation,
+    mobilebackup,
+    mobileinstallation,
+    mount,
+    networkextension,
+    networkextensioncache,
+    netusage,
+    olddsc,
+    ota_update,
+    plists,
+    powerlogs,
+    preferences,
+    ps,
+    psthread,
+    quarantine_events,
+    remotectl_dumpstate,
+    runningboard,
+    safari_history,
+    security_sysdiagnose,
+    screentime,
+    shutdownlogs,
+    spindumpnosymbols,
+    swcutil,
+    sys,
+    system_stats,
+    taskinfo,
+    transparency,
+    transparency_json,
+    usermanagement,
+    uuid2path,
+    wifi_diagnostics,
+    wifi_known_networks,
+    wifinetworks,
+    wifiscan,
+    wifisecurity,
+}
+
+impl ParserType {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Self::accessibility_tcc => "accessibility_tcc",
+            Self::apollo_all => "apollo_all",
+            Self::appinstallation => "appinstallation",
+            Self::avconference_callsettings => "avconference_callsettings",
+            Self::awd_baseband => "awd_baseband",
+            Self::battery_bdc => "battery_bdc",
+            Self::bluetooth => "bluetooth",
+            Self::brctl => "brctl",
+            Self::ckks_pcs => "ckks_pcs",
+            Self::collection_meta => "collection_meta",
+            Self::containermanager => "containermanager",
+            Self::crashlogs => "crashlogs",
+            Self::disks => "disks",
+            Self::ioacpiplane => "ioacpiplane",
+            Self::iodevicetree => "iodevicetree",
+            Self::iofirewire => "iofirewire",
+            Self::iopower => "iopower",
+            Self::ioservice => "ioservice",
+            Self::iousb => "iousb",
+            Self::interactionc => "interactionc",
+            Self::ioport => "ioport",
+            Self::itunesstore => "itunesstore",
+            Self::kbdebug => "kbdebug",
+            Self::knowledgec => "knowledgec",
+            Self::lockdownd => "lockdownd",
+            Self::logarchive => "logarchive",
+            Self::logdata_statistics => "logdata_statistics",
+            Self::logdata_statistics_txt => "logdata_statistics_txt",
+            Self::lsaw => "lsaw",
+            Self::mcsettingsevents => "mcsettingsevents",
+            Self::mcstate_shared_profile => "mcstate_shared_profile",
+            Self::microstackshots => "microstackshots",
+            Self::mobileactivation => "mobileactivation",
+            Self::mobilebackup => "mobilebackup",
+            Self::mobileinstallation => "mobileinstallation",
+            Self::mount => "mount",
+            Self::networkextension => "networkextension",
+            Self::networkextensioncache => "networkextensioncache",
+            Self::netusage => "netusage",
+            Self::olddsc => "olddsc",
+            Self::ota_update => "ota_update",
+            Self::plists => "plists",
+            Self::powerlogs => "powerlogs",
+            Self::preferences => "preferences",
+            Self::ps => "ps",
+            Self::psthread => "psthread",
+            Self::quarantine_events => "quarantine_events",
+            Self::remotectl_dumpstate => "remotectl_dumpstate",
+            Self::runningboard => "runningboard",
+            Self::safari_history => "safari_history",
+            Self::security_sysdiagnose => "security_sysdiagnose",
+            Self::screentime => "screentime",
+            Self::shutdownlogs => "shutdownlogs",
+            Self::spindumpnosymbols => "spindumpnosymbols",
+            Self::swcutil => "swcutil",
+            Self::sys => "sys",
+            Self::system_stats => "system_stats",
+            Self::taskinfo => "taskinfo",
+            Self::transparency => "transparency",
+            Self::transparency_json => "transparency_json",
+            Self::usermanagement => "usermanagement",
+            Self::uuid2path => "uuid2path",
+            Self::wifi_diagnostics => "wifi_diagnostics",
+            Self::wifi_known_networks => "wifi_known_networks",
+            Self::wifinetworks => "wifinetworks",
+            Self::wifiscan => "wifiscan",
+            Self::wifisecurity => "wifisecurity",
+        }
+    }
+
+    pub fn description(self) -> &'static str {
+        match self {
+            Self::accessibility_tcc => "Parsing Accessibility TCC logs",
+            Self::apollo_all => "Run all bundled APOLLO modules on discovered SQLite DBs",
+            Self::appinstallation => "Parsing app installation logs",
+            Self::avconference_callsettings => "Parsing AVConference CallSettings calldump files",
+            Self::awd_baseband => "Inventory of AWD metriclog / baseband binary traces",
+            Self::battery_bdc => "Parsing BatteryBDC CSV files",
+            Self::bluetooth => "Bluetooth / AWDL / companion-link status text",
+            Self::brctl => "Parsing brctl files",
+            Self::ckks_pcs => "CloudKit Key Sync and Protected Cloud Storage status",
+            Self::collection_meta => "taskSummary / errors / summaries / sysdiagnose.log collection meta",
+            Self::containermanager => "Parsing containermanagerd logs file",
+            Self::crashlogs => "Parsing crashes folder",
+            Self::disks => "Parsing disks.txt file (df output)",
+            Self::interactionc => "Parsing interactionC.db (APOLLO)",
+            Self::ioacpiplane => "IOACPIPlane.txt file parser",
+            Self::iodevicetree => "IODeviceTree.txt file parser",
+            Self::iofirewire => "IOFireWire.txt file parser",
+            Self::ioport => "IOPort.txt file parser (IOReg)",
+            Self::iopower => "IOPower.txt file parser",
+            Self::ioservice => "IOService.txt file parser",
+            Self::iousb => "IOUSB.txt file parser",
+            Self::itunesstore => "Parsing iTunes store logs",
+            Self::kbdebug => "kbdebug.txt logfile parser",
+            Self::knowledgec => "Parsing KnowledgeC database (APOLLO)",
+            Self::lockdownd => "Parsing lockdownd logs file",
+            Self::logarchive => "Parsing system_logs.logarchive folder",
+            Self::logdata_statistics => "Parsing logdata.statistics.jsonl files",
+            Self::logdata_statistics_txt => "Parsing logdata.statistics.txt files",
+            Self::lsaw => "LaunchServices lsaw.csstoredump (string scrape)",
+            Self::mcsettingsevents => "Parsing MC Settings Events plist file",
+            Self::mcstate_shared_profile => "Parsing MCState Shared Profile stub files",
+            Self::microstackshots => "microstackshots process-sampling history (gzip inventory)",
+            Self::mobileactivation => "Parsing mobileactivation logs file",
+            Self::mobilebackup => "Parsing mobilebackup plist file",
+            Self::mobileinstallation => "Parsing mobile_installation logs file",
+            Self::mount => "Parsing mount.txt (sealed / read-only root integrity)",
+            Self::netusage => "Parsing netusage.sqlite (APOLLO)",
+            Self::networkextension => "Parsing networkextension plist file",
+            Self::networkextensioncache => "Parsing networkextensioncache plist file",
+            Self::olddsc => "Parsing olddsc (Dynamic Shared Cache) files",
+            Self::ota_update => "OTA / restore logs under logs/OTAUpdateLogs",
+            Self::plists => "Parsing any pslist into json",
+            Self::powerlogs => "Parsing powerlogs database",
+            Self::preferences => "Preferences/*.txt locale / Screen Time / accessibility dumps",
+            Self::ps => "Parsing ps.txt file",
+            Self::psthread => "Parsing ps_thread.txt file",
+            Self::quarantine_events => "Parsing Launch Services quarantine DB (APOLLO)",
+            Self::remotectl_dumpstate => "Parsing remotectl_dumpstate file containing system information",
+            Self::runningboard => "RunningBoard_state.log process assertions",
+            Self::safari_history => "Parsing Safari History.db (APOLLO)",
+            Self::screentime => "Parsing Screen Time RMAdminStore databases (APOLLO)",
+            Self::security_sysdiagnose => "Parsing security-sysdiagnose.txt file containing keychain information",
+            Self::shutdownlogs => "Parsing shutdown.log file",
+            Self::spindumpnosymbols => "Parsing spindump-nosymbols file",
+            Self::swcutil => "Parsing swcutil_show file",
+            Self::sys => "Parsing SystemVersion plist file",
+            Self::system_stats => "APFS / VM / SMC / Trial / suggest_tool system stats text",
+            Self::taskinfo => "Parsing taskinfo txt file",
+            Self::transparency => "Parsing transparency.log json file as timeline",
+            Self::transparency_json => "Parsing transparency.log json file as json",
+            Self::usermanagement => "umtool / usermanagerd user accounts and personas",
+            Self::uuid2path => "Parsing UUIDToBinaryLocations plist file",
+            Self::wifi_diagnostics => "WiFi ifconfig / arp / netstat / status / diagnostics text",
+            Self::wifi_known_networks => "Parsing Known Wifi Networks plist file",
+            Self::wifinetworks => "Parsing com.apple.wifi plist files",
+            Self::wifiscan => "Parsing wifi_scan files",
+            Self::wifisecurity => "Parsing WiFi Security logs",
+        }
+    }
+}
+
+impl FromStr for ParserType {
+    type Err = String;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let raw = s.trim();
+        let norm = raw.replace('-', "_");
+        let id = match norm.as_str() {
+            "apollo" => "apollo_all",
+            "interaction_c" => "interactionc",
+            "knowledge_c" => "knowledgec",
+            "ps_thread" => "psthread",
+            "quarantine" => "quarantine_events",
+            "screen_time" => "screentime",
+            "systemversion" | "system_version" => "sys",
+            other => other,
+        };
+        for variant in <Self as strum::IntoEnumIterator>::iter() {
+            if variant.as_str() == id {
+                return Ok(variant);
+            }
+        }
+        Err(format!("unknown parser type: {raw}"))
+    }
+}
+
+impl std::fmt::Display for ParserType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
+pub fn all_parser_types() -> Vec<ParserType> {
+    use strum::IntoEnumIterator;
+    ParserType::iter().collect()
+}

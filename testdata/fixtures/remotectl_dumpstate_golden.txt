@@ -1,0 +1,11 @@
+Device:
+	OSVersion: "17.2.1"
+	BuildVersion: "21C62"
+	ProductName: "iPhone OS"
+	ProductType: "iPhone15,2"
+	SerialNumber: "GOLDEN123"
+	UniqueDeviceID: "00000000-1111-2222-3333-444444444444"
+Services:
+	com.apple.springboard
+	com.apple.backboardd
+	com.apple.mediaserverd
