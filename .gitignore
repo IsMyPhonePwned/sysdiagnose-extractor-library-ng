@@ -25,3 +25,6 @@ rustc-ice-*.txt
 
 # Pinned upstream checkout (tests/fixtures only; not part of this crate)
 third_party/
+
+# Local helper; not part of the published crate
+xtask/

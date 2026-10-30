@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-only
 
 [workspace]
-members = [".", "python", "xtask"]
-default-members = [".", "xtask"]
+members = [".", "python"]
+default-members = ["."]
 resolver = "2"
 
 [package]
